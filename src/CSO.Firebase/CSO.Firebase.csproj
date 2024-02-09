@@ -1,0 +1,49 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+
+    <ImplicitUsings>enable</ImplicitUsings>
+		<Platforms>AnyCPU;x64</Platforms>
+    <TargetFramework>net8.0</TargetFramework>
+    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+    <GenerateAssemblyInfo>True</GenerateAssemblyInfo> 
+    <Configuration></Configuration>
+    <Company>Central Statistics Office, Ireland</Company>
+    <PackageId>CSO.Firebase.BETA</PackageId>
+    <Product>CSO Firebase Library</Product>
+    <Copyright>Central Statistics Office, Ireland</Copyright>
+    <Version>0.0.1</Version>
+    <Authors>Central Statistics Office, Ireland</Authors>
+    <SignAssembly>False</SignAssembly>
+    <RepositoryUrl>https://github.com/CSOIreland/CSOFirebase</RepositoryUrl>
+    <PackageReleaseNotes>
+      - [INFO] initial release of CSO standalone firebase library
+    </PackageReleaseNotes>
+    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+    <RestoreLockedMode>true</RestoreLockedMode>
+ </PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="FirebaseAdmin" Version="2.4.0" />
+	</ItemGroup>
+
+  
+	<ItemGroup>
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Properties\" />
+  
+	</ItemGroup>
+
+   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <Optimize>False</Optimize>
+    <DebugType>portable</DebugType>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DebugType>portable</DebugType>
+  </PropertyGroup>
+
+</Project>
