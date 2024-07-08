@@ -2,9 +2,9 @@
 {
     public interface IFirebase
     {
-        bool Authenticate(string Uid, string AccessToken, dynamic ApiServicesHelper, dynamic LogObject);
-        bool Logout(string Uid, string AccessToken, dynamic ApiServicesHelper, dynamic LogObject);
-        IDictionary<string, dynamic> GetAllUsers(dynamic ApiServicesHelper, dynamic LogObject);
-        bool DeleteUser(string uid, dynamic ApiServicesHelper, dynamic LogObject);
+        bool Authenticate(string Uid, string AccessToken, IDictionary<string, string> apiConfiguration, dynamic LogObject);
+        bool Logout(string Uid, string AccessToken, IDictionary<string, string> apiConfiguration, dynamic LogObject);
+        IDictionary<string, dynamic> GetAllUsers(IDictionary<string,string> apiConfiguration, dynamic LogObject);
+        bool DeleteUser(string uid, IDictionary<string, string> apiConfiguration, dynamic LogObject);
     }
 }

@@ -12,12 +12,12 @@
     <PackageId>CSO.Firebase.BETA</PackageId>
     <Product>CSO Firebase Library</Product>
     <Copyright>Central Statistics Office, Ireland</Copyright>
-    <Version>0.0.1</Version>
+    <Version>0.0.2</Version>
     <Authors>Central Statistics Office, Ireland</Authors>
     <SignAssembly>False</SignAssembly>
     <RepositoryUrl>https://github.com/CSOIreland/CSOFirebase</RepositoryUrl>
     <PackageReleaseNotes>
-      - [INFO] initial release of CSO standalone firebase library
+      - [BUGFIX] Change signature of Firebase methods
     </PackageReleaseNotes>
     <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
     <RestoreLockedMode>true</RestoreLockedMode>

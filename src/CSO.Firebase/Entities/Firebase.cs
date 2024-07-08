@@ -22,9 +22,9 @@ namespace CSO.Firebase
         /// <param name="ApiServicesHelper"></param>
         /// <param name="LogObject"></param> 
         /// <returns></returns>
-        public bool Authenticate(string Uid, string AccessToken, dynamic ApiServicesHelper, dynamic LogObject)
+        public bool Authenticate(string Uid, string AccessToken, IDictionary<string, string> apiConfiguration, dynamic LogObject)
         {
-            if (!Convert.ToBoolean(ApiServicesHelper.ApiConfiguration.Settings["API_FIREBASE_ENABLED"])) return false;
+            if (!Convert.ToBoolean(apiConfiguration["API_FIREBASE_ENABLED"])) return false;
 
             try
             {
@@ -35,29 +35,20 @@ namespace CSO.Firebase
                 {
                     try
                     {
-                        if (ApiServicesHelper.APPConfig.Settings_Type == "DB")
+                        
+                        byte[] byteArray = Encoding.UTF8.GetBytes(apiConfiguration["API_FIREBASE_CREDENTIAL"]);
+                        MemoryStream fbStream = new MemoryStream(byteArray);
+                        var defaultApp = FirebaseApp.Create(new AppOptions()
                         {
-                            byte[] byteArray = Encoding.UTF8.GetBytes(ApiServicesHelper.ApiConfiguration.Settings["API_FIREBASE_CREDENTIAL"]);
-                            MemoryStream fbStream = new MemoryStream(byteArray);
-                            var defaultApp = FirebaseApp.Create(new AppOptions()
-                            {
-                                Credential = GoogleCredential.FromStream(fbStream)
-                            });
-                        }
-                        else
-                        {
-                            string configPath = ApiServicesHelper.ApiConfiguration.Settings["API_FIREBASE_PATH"];
-                            var defaultApp = FirebaseApp.Create(new AppOptions()
-                            {
-                                Credential = GoogleCredential.FromFile(configPath)
-                            });
-                        }
+                            Credential = GoogleCredential.FromStream(fbStream)
+                        });
+                       
                     }
                     //FirebaseApp already exists - continue
                     catch (System.ArgumentException)
                     {
                         LogObject.Error("Firebase app exists already - attempt to continue");
-                        var defaultApp = FirebaseApp.GetInstance(ApiServicesHelper.ApiConfiguration.Settings["API_FIREBASE_APP_NAME"]);
+                        var defaultApp = FirebaseApp.GetInstance(apiConfiguration["API_FIREBASE_APP_NAME"]);
 
                     }
                 }
@@ -83,9 +74,9 @@ namespace CSO.Firebase
             }
         }
 
-        public bool Logout(string Uid, string AccessToken, dynamic ApiServicesHelper, dynamic LogObject)
+        public bool Logout(string Uid, string AccessToken, IDictionary<string, string> apiConfiguration, dynamic LogObject)
         {
-            if (!Convert.ToBoolean(ApiServicesHelper.ApiConfiguration.Settings["API_FIREBASE_ENABLED"])) return false;
+            if (!Convert.ToBoolean(apiConfiguration["API_FIREBASE_ENABLED"])) return false;
             try
             {
                 if (Uid == null || AccessToken == null) return false;
@@ -97,29 +88,21 @@ namespace CSO.Firebase
                 {
                     try
                     {
-                        if (ApiServicesHelper.APPConfig.Settings_Type == "DB")
-                        {
-                            byte[] byteArray = Encoding.UTF8.GetBytes(ApiServicesHelper.ApiConfiguration.Settings["API_FIREBASE_CREDENTIAL"]);
+                        
+                            byte[] byteArray = Encoding.UTF8.GetBytes(apiConfiguration["API_FIREBASE_CREDENTIAL"]);
                             MemoryStream fbStream = new MemoryStream(byteArray);
                             var defaultApp = FirebaseApp.Create(new AppOptions()
                             {
                                 Credential = GoogleCredential.FromStream(fbStream)
                             });
-                        }
-                        else 
-                        {
-                            string configPath = ApiServicesHelper.ApiConfiguration.Settings["API_FIREBASE_PATH"];
-                            var defaultApp = FirebaseApp.Create(new AppOptions()
-                            {
-                                Credential = GoogleCredential.FromFile(configPath)
-                            });
-                        }
+                        
+                       
                     }
                     //FirebaseApp already exists - continue
                     catch (System.ArgumentException)
                     {
                         LogObject.Error("Firebase app exists already - attempt to continue");
-                        var defaultApp = FirebaseApp.GetInstance(ApiServicesHelper.ApiConfiguration.Settings["API_FIREBASE_APP_NAME"]);
+                        var defaultApp = FirebaseApp.GetInstance(apiConfiguration["API_FIREBASE_APP_NAME"]);
 
                     }
                 }
@@ -168,9 +151,10 @@ namespace CSO.Firebase
         /// <param name="ApiServicesHelper"></param>
         /// <param name="LogObject"></param>
         /// <returns></returns>
-        public IDictionary<string, dynamic> GetAllUsers(dynamic ApiServicesHelper, dynamic LogObject)
+        public IDictionary<string, dynamic> GetAllUsers(IDictionary<string,string> apiConfiguration, dynamic LogObject)
         {
-            if (!Convert.ToBoolean(ApiServicesHelper.ApiConfiguration.Settings["API_FIREBASE_ENABLED"])) return null;
+           
+            if (!Convert.ToBoolean(apiConfiguration["API_FIREBASE_ENABLED"])) return null;
 
             //We use hash as an identifer for the cache. This is based on the contents of the firebaseKey file
             //string hash;
@@ -187,28 +171,19 @@ namespace CSO.Firebase
             {
                 try
                 {
-                    if (ApiServicesHelper.APPConfig.Settings_Type == "DB")
+                    
+                    byte[] byteArray = Encoding.UTF8.GetBytes(apiConfiguration["API_FIREBASE_CREDENTIAL"]);
+                    MemoryStream fbStream = new MemoryStream(byteArray);
+                    var defaultApp = FirebaseApp.Create(new AppOptions()
                     {
-                        byte[] byteArray = Encoding.UTF8.GetBytes(ApiServicesHelper.ApiConfiguration.Settings["API_FIREBASE_CREDENTIAL"]);
-                        MemoryStream fbStream = new MemoryStream(byteArray);
-                        var defaultApp = FirebaseApp.Create(new AppOptions()
-                        {
-                            Credential = GoogleCredential.FromStream(fbStream)
-                        });
-                    }
-                    else
-                    {
-                        string configPath = ApiServicesHelper.ApiConfiguration.Settings["API_FIREBASE_PATH"]; 
-                        var defaultApp = FirebaseApp.Create(new AppOptions()
-                        {
-                            Credential = GoogleCredential.FromFile(configPath)
-                        });
-                    }
+                        Credential = GoogleCredential.FromStream(fbStream)
+                    });
+                    
                 }
                 catch
                 {
                     LogObject.Error("Firebase app exists already - attempt to continue");
-                    var defaultApp = FirebaseApp.GetInstance(ApiServicesHelper.ApiConfiguration.Settings["API_FIREBASE_APP_NAME"]);
+                    var defaultApp = FirebaseApp.GetInstance(apiConfiguration["API_FIREBASE_APP_NAME"]);
                 }
             }
 
@@ -253,37 +228,29 @@ namespace CSO.Firebase
         /// <param name="ApiServicesHelper"></param>
         /// <param name="LogObject"></param>
         /// <returns></returns>
-        public bool DeleteUser(string uid, dynamic ApiServicesHelper, dynamic LogObject)
+        public bool DeleteUser(string uid, IDictionary<string, string> apiConfiguration, dynamic LogObject)
         {
-            if (!Convert.ToBoolean(ApiServicesHelper.ApiConfiguration.Settings["API_FIREBASE_ENABLED"])) return false;
-            try
+                if (!Convert.ToBoolean(apiConfiguration["API_FIREBASE_ENABLED"])) return false;
+                try
             {
                 if (FirebaseAdmin.Auth.FirebaseAuth.DefaultInstance == null)
                 {
                     try
                     {
-                        if (ApiServicesHelper.APPConfig.Settings_Type == "DB")
-                        {
-                            byte[] byteArray = Encoding.UTF8.GetBytes(ApiServicesHelper.ApiConfiguration.Settings["API_FIREBASE_CREDENTIAL"]);
+                        
+                            byte[] byteArray = Encoding.UTF8.GetBytes(apiConfiguration["API_FIREBASE_CREDENTIAL"]);
                             MemoryStream fbStream = new MemoryStream(byteArray);
                             var defaultApp = FirebaseApp.Create(new AppOptions()
                             {
                                 Credential = GoogleCredential.FromStream(fbStream)
                             });
-                        }
-                        else
-                        {
-                            string configPath = ApiServicesHelper.ApiConfiguration.Settings["API_FIREBASE_PATH"];
-                            var defaultApp = FirebaseApp.Create(new AppOptions()
-                            {
-                                Credential = GoogleCredential.FromFile(configPath)
-                            });
-                        }
+                        
+                        
                     }
                     catch
                     {
                         LogObject.Error("Firebase app exists already - attempt to continue");
-                        var defaultApp = FirebaseApp.GetInstance(ApiServicesHelper.ApiConfiguration.Settings["API_FIREBASE_APP_NAME"]);
+                        var defaultApp = FirebaseApp.GetInstance(apiConfiguration["API_FIREBASE_APP_NAME"]);
                     }
                 }
                 var token = FirebaseAuth.DefaultInstance.DeleteUserAsync(uid);
