@@ -12,19 +12,19 @@
     <PackageId>CSO.Firebase.BETA</PackageId>
     <Product>CSO Firebase Library</Product>
     <Copyright>Central Statistics Office, Ireland</Copyright>
-    <Version>0.0.2</Version>
+    <Version>0.0.3</Version>
     <Authors>Central Statistics Office, Ireland</Authors>
     <SignAssembly>False</SignAssembly>
     <RepositoryUrl>https://github.com/CSOIreland/CSOFirebase</RepositoryUrl>
     <PackageReleaseNotes>
-      - [BUGFIX] Change signature of Firebase methods
+      - [ENHANCEMENT] firebase admin pacakge upgraded to 3.0.0
     </PackageReleaseNotes>
     <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
     <RestoreLockedMode>true</RestoreLockedMode>
  </PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="FirebaseAdmin" Version="2.4.0" />
+		<PackageReference Include="FirebaseAdmin" Version="3.0.0" />
 	</ItemGroup>
 
   
