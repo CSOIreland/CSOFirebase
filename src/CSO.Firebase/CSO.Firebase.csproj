@@ -9,15 +9,15 @@
     <GenerateAssemblyInfo>True</GenerateAssemblyInfo> 
     <Configuration></Configuration>
     <Company>Central Statistics Office, Ireland</Company>
-    <PackageId>CSO.Firebase.BETA</PackageId>
+    <PackageId>CSO.Firebase</PackageId>
     <Product>CSO Firebase Library</Product>
     <Copyright>Central Statistics Office, Ireland</Copyright>
-    <Version>0.0.3</Version>
+    <Version>0.0.1</Version>
     <Authors>Central Statistics Office, Ireland</Authors>
     <SignAssembly>False</SignAssembly>
     <RepositoryUrl>https://github.com/CSOIreland/CSOFirebase</RepositoryUrl>
     <PackageReleaseNotes>
-      - [ENHANCEMENT] firebase admin pacakge upgraded to 3.0.0
+      - [INFO] initial release of cso firebase
     </PackageReleaseNotes>
     <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
     <RestoreLockedMode>true</RestoreLockedMode>
